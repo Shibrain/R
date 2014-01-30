@@ -8,7 +8,7 @@ Plots
 
 ![ScreenShot](https://raw.github.com/ghromis/R/master/3panelHist.jpeg)
 
-## boxplot sorted by median
+## Boxplot sorted by median
 
 ![ScreenShot](https://raw.github.com/ghromis/R/master/boxplot.jpeg)
 
