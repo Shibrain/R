@@ -20,7 +20,10 @@ mergedData$label[mergedData$label== 4] <- "sitting"
 mergedData$label[mergedData$label== 5] <- "standing"
 mergedData$label[mergedData$label== 6] <- "laying"
 
-mean <- aggregate(. ~ label, data = mergedData, mean)
+means <- aggregate(. ~ label, data = mergedData, mean)
+write.csv(means, file="means.csv", row.names=FALSE)
 sd <- aggregate(. ~ label, data = mergedData, sd)
 
+average <- data.frame(Activity=mean[,1], Average=rowMeans(mean[,-1]))
 
+test <- read.csv("means.csv", header=T)
