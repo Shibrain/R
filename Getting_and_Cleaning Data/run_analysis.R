@@ -13,17 +13,16 @@ test <- cbind(testSet, testLabel)
 
 mergedData <-rbind(train,test)
 colnames(mergedData)[562] <- "label"
-mergedData$label[mergedData$label== 1] <- "walking"
-mergedData$label[mergedData$label== 2] <- "walking upstairs"
-mergedData$label[mergedData$label== 3] <- "walking downstairs"
-mergedData$label[mergedData$label== 4] <- "sitting"
-mergedData$label[mergedData$label== 5] <- "standing"
-mergedData$label[mergedData$label== 6] <- "laying"
+allLabels <- c("walking", "walking upstairs", "walking downstairs",
+              "sitting", "standing", "laying")
+for (i in 1:6){
+  mergedData$label[mergedData$label== i] <- allLabels[i]
+}
 
 means <- aggregate(. ~ label, data = mergedData, mean)
 write.csv(means, file="means.csv", row.names=FALSE)
+write.table(means, file="means.txt", row.names=FALSE)
 sd <- aggregate(. ~ label, data = mergedData, sd)
 
-average <- data.frame(Activity=mean[,1], Average=rowMeans(mean[,-1]))
-
-test <- read.csv("means.csv", header=T)
+# average <- data.frame(Activity=mean[,1], Average=rowMeans(mean[,-1]))
+# test <- read.table("means.txt", header=T)
