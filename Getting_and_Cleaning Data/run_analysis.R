@@ -1,3 +1,4 @@
+# get urls, read into r and bind into one dataset.
 trainSetUrl <- "./UCI HAR Dataset/train/X_train.txt"
 trainLabelUrl <- "./UCI HAR Dataset/train/y_train.txt"
 trainSubjectUrl <- "./UCI HAR Dataset/train/subject_train.txt"
@@ -22,6 +23,7 @@ testSubject <- read.table(testSubjectUrl, header=F)
 test <- cbind(testSet, testLabel, testSubject)
 
 mergedData <-rbind(train,test)
+# change column names to it's descriptive names
 colnames(mergedData)[562] <- "Label"
 colnames(mergedData)[563] <- "Subject"
 allLabels <- c("walking", "walking upstairs", "walking downstairs",
@@ -30,9 +32,11 @@ for (i in 1:6){
   mergedData$Label[mergedData$Label== i] <- allLabels[i]
 }
 
+# extract required features
 extractedColumns <- grep("mean\\(\\)|std\\(\\)", features$V2)
 extractedValues <- mergedData[c(extractedColumns, 562,563)]
 
+# create tidy data set and read into separate file
 tidySet <- aggregate(. ~ Label+Subject, data = extractedValues, mean)
 
 write.csv(means, file="tidySet.csv", row.names=FALSE)
