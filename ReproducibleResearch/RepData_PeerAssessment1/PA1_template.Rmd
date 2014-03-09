@@ -1,3 +1,6 @@
+``` {r setoptions, echo=FALSE}
+opts_chunk$set(cache=TRUE)
+```
 # Reproducible Research: Peer Assessment 1
 
 
